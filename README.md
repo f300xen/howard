@@ -7,6 +7,7 @@ https://f300xen.github.io/howard/
 TODO: 
 - clean up all the vibe coded nonsense
 - make the UI look good
+  - dark mode
 - fix minor text corruption
 - usage documentation
 - highlight search terms
