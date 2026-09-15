@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Card Grid</title>
+  <style>
+    body {
+      margin: 0;
+      padding-top: 6rem;
+      font-family: sans-serif;
+      background-color: #eee;
+    }
+
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6rem;
+      background-color: #444;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .controls {
+      max-width: 960px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .search-wrapper {
+      width: 480px;
+      flex: 0 0 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .search-box {
+      width: 100%;
+      padding: 7px 12px;
+      font-size: 0.95rem;
+      border: 1px solid #666;
+      border-radius: 4px;
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    .search-box:focus {
+      border-color: #aaa;
+    }
+
+    .result-count {
+      font-size: 0.8rem;
+      color: #bbb;
+      user-select: none;
+    }
+
+    .filter-options {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      white-space: nowrap;
+      font-size: 0.85rem;
+    }
+
+    .filter-options select,
+    .filter-options input {
+      font-size: 0.85rem;
+    }
+
+    .card-container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 0px;
+    }
+
+    .card-item {
+      position: relative;
+      width: 120px;
+      flex: 0 0 120px;
+      line-height: 0;
+      cursor: pointer;
+    }
+
+    .card-item img {
+      width: 120px;
+      height: auto;
+      display: block;
+    }
+
+    .card-search-label {
+      position: absolute;
+      top: 80%;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      white-space: normal;
+      word-break: break-word;
+      line-height: 1.1;
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: transparent;
+      pointer-events: none;
+      user-select: text;
+    }
+
+    /* ==========================================
+       HOVER TOOLTIP STYLES
+       ========================================== */
+    .card-tooltip {
+      position: fixed;
+      z-index: 9999;
+      pointer-events: none; /* Prevents flicker */
+      background-color: #222;
+      color: #eee;
+      padding: 0.25rem;
+      border-radius: 0.125rem;
+      border: 1px solid #444;
+      width: 200px;
+      box-sizing: border-box;
+      line-height: 1.4;
+      text-align: center;
+      font-size: 0.69rem;
+      display: none;
+    }
+
+    .card-tooltip-header {
+      font-weight: bold;
+      font-size: .8rem;
+      color: #fff;
+    }
+
+    .card-tooltip-body {
+      color: #ccc;
+    }
+
+    .card-tooltip-body b {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top-bar">
+    <div class="controls">
+      <div class="search-wrapper">
+        <input 
+          type="text" 
+          id="searchInput" 
+          class="search-box" 
+          placeholder='e.g. (c:1 OR c:2) p:>3 "on reveal" (press Enter)...'
+        >
+        <span id="resultCount" class="result-count"></span>
+      </div>
+
+      <div class="filter-options">
+        <label>
+          <input type="checkbox" id="showToken"> Show token
+        </label>
+
+        <label>
+          Sort:
+          <select id="sortSelect">
+            <option value="cost" selected>Cost</option>
+            <option value="power">Power</option>
+            <option value="name">Name</option>
+            <option value="release">Release Date</option>
+          </select>
+        </label>
+
+        <label>
+          Order:
+          <select id="sortOrder">
+            <option value="asc" selected>Ascending</option>
+            <option value="desc">Descending</option>
+          </select>
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <div id="cardGrid" class="card-container"></div>
+
+  <!-- Global Tooltip Element -->
+  <div id="cardTooltip" class="card-tooltip"></div>
+
+  <script type="module" src="app.js"></script>
+
+</body>
+</html>
